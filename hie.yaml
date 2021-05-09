@@ -1,0 +1,7 @@
+cradle:
+  cabal:
+    - path: "./packages/crm-test/lib"
+      component: "lib:crm-test"
+
+    - path: "./packages/crm-test/app"
+      component: "crm-test:exe:crm-test"
