@@ -4,7 +4,7 @@
   inputs.hix.url = github:tek/hix;
   inputs.ribosome.url = github:tek/ribosome;
 
-  outputs = { hix, ribosome, ... }:
+  outputs = { self, hix, ribosome, ... }:
   let
     inherit (ribosome.inputs) chiasma;
     overrides = { hackage, source, minimal, configure, pkgs, ... }: {
@@ -23,6 +23,15 @@
     versionFile = "ops/hpack/packages/crm-test.yaml";
     runConfig = p: {
       extraShellInputs = [p.pkgs.neovim];
+    };
+    modify = _: outputs: rec {
+      apps = {
+        crm-test = {
+          type = "app";
+          program = "${outputs.packages.crm-test}/bin/crm-test";
+        };
+      };
+      defaultApp = apps.crm-test;
     };
   };
 }
